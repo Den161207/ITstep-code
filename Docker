@@ -1,0 +1,7 @@
+docker ps
+docker ps -a
+docker images
+docker pull
+docker run -d -p 80:80
+docker stop
+docker rm(видалитити)
