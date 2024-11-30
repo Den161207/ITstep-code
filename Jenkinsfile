@@ -2,7 +2,6 @@ pipeline {
     agent any
     
     environment {
-        // Задаємо змінні середовища для серверів
         APACHE2_SERVICE = 'apache2'
         NGINX_SERVICE = 'nginx'
         TOMCAT_SERVICE = 'tomcat'
@@ -12,7 +11,6 @@ pipeline {
         stage('Stop Services') {
             steps {
                 script {
-                    // Зупинка сервісів
                     sh "sudo systemctl stop ${env.APACHE2_SERVICE}"
                     sh "sudo systemctl stop ${env.NGINX_SERVICE}"
                     sh "sudo systemctl stop ${env.TOMCAT_SERVICE}"
@@ -23,11 +21,10 @@ pipeline {
         stage('Apply Configuration Changes') {
             steps {
                 script {
-                    // Припустимо, що зміни конфігурацій зберігаються у Git
-                    // Клонування репозиторію з конфігураціями
+
                     sh 'git clone https://ITstep-code-url/configurations.git'
                     
-                    // Копіюємо конфігурації до відповідних директорій
+
                     sh 'sudo cp configurations/apache2.conf /etc/apache2/apache2.conf'
                     sh 'sudo cp configurations/nginx.conf /etc/nginx/nginx.conf'
                     sh 'sudo cp configurations/server.xml /opt/tomcat/conf/server.xml'
