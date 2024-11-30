@@ -25,7 +25,7 @@ pipeline {
                 script {
                     // Припустимо, що зміни конфігурацій зберігаються у Git
                     // Клонування репозиторію з конфігураціями
-                    sh 'git clone https://your-repository-url/configurations.git'
+                    sh 'git clone https://ITstep-code-url/configurations.git'
                     
                     // Копіюємо конфігурації до відповідних директорій
                     sh 'sudo cp configurations/apache2.conf /etc/apache2/apache2.conf'
@@ -38,7 +38,6 @@ pipeline {
         stage('Restart Services') {
             steps {
                 script {
-                    // Перезапуск сервісів після внесення змін
                     sh "sudo systemctl start ${env.APACHE2_SERVICE}"
                     sh "sudo systemctl start ${env.NGINX_SERVICE}"
                     sh "sudo systemctl start ${env.TOMCAT_SERVICE}"
@@ -49,7 +48,6 @@ pipeline {
         stage('Verify Services') {
             steps {
                 script {
-                    // Перевіряємо статус сервісів
                     sh "sudo systemctl status ${env.APACHE2_SERVICE} --no-pager"
                     sh "sudo systemctl status ${env.NGINX_SERVICE} --no-pager"
                     sh "sudo systemctl status ${env.TOMCAT_SERVICE} --no-pager"
@@ -60,7 +58,6 @@ pipeline {
     
     post {
         always {
-            // Звітність чи додаткові дії
             echo 'Pipeline execution finished!'
         }
         success {
