@@ -5,3 +5,4 @@ docker pull
 docker run -d -p 80:80
 docker stop
 docker rm(видалитити)
+docker system prune(видалення -a)
