@@ -1,0 +1,78 @@
+install:
+  virtualbox
+  kubectl
+  minicube
+========================
+
+minikube start --cpus=2 --memory=2gb --disk-size=10gb -p step
+minikube start --cpus=2 --memory=2gb --disk-size=10gb -p ABOBA --driver=virtualbox
+minikube -p stop
+minikube -p delete
+
+kubectl get componentstatuses
+
+kubectl cluster-info
+
+kubectl get nodes
+kubectl get pods
+kubectl delete pods hello
+kubectl describe pods hello
+kubectl exec hello date
+kubectl exec -it hello (-- /bin/bash)(sh)
+
+kubectl run pode-1 --image=ubuntu/apache2 --port=80
+kubectl describe pod pode-1111111
+kubectl exec -it pode-1111111 --container pode-1111111 -- /bin/bash
+
+kubectl port-forward pode-1111111 8000:80
+
+====================================================================
+
+РјС–РЅС–РјР°Р»СЊРЅРёР№ РјР°РЅС–С„РµСЃС‚
+
+kubectl apply -f manifest.yaml
+
+apiVersion: batch/v1
+kind: test
+metadata:
+  name: test
+spec:
+  containers:
+  - name: test
+    image: ubuntu/apache2
+
+====================================================================
+
+kubectl delete -f manifest.yaml
+kubectl apply -f manifest.yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: test
+spec:
+  containers:
+  - name: test
+    image: ubuntu/apache2
+    ports:
+    - containerPort: 80
+
+
+====================================================================
+
+
+apiVersion : v1
+kind: Pod
+metadata:
+  name: my-app
+spec:
+  containers:
+    - name : container-web
+      image: nginx:latest
+      ports:
+        - containerPort: 80
+
+    - name : container-api
+      image: tomcat:8.5.38
+      ports:
+        - containerPort: 8080
